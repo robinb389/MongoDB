@@ -1,19 +1,21 @@
 package mongodb.contactes;
 
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.MongoCollection;
-import org.bson.Document;
-import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Updates.set;
 import java.util.Date;
 import java.util.Scanner;
+
+import org.bson.Document;
+
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Updates.set;
 
 public class App {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String uri = "mongodb://localhost:27017";
+        String uri = "mongodb+srv://robinb389:Robin2006@cluster0.rtzlmey.mongodb.net/";
 
         try (MongoClient client = MongoClients.create(uri)) {
             MongoDatabase db = client.getDatabase("Contactes");
@@ -47,7 +49,7 @@ public class App {
                                 .append("email", email)
                                 .append("createdAt", new Date());
                         collection.insertOne(newContact);
-                        System.out.println("Contact added!");
+                        System.out.println("Contact added!"); 
                         break;
 
                     case 2:
@@ -82,7 +84,7 @@ public class App {
                 }
             }
         }
-        sc.close();
+        sc.close();  
     }
 
     private static void printContact(Document doc) {
@@ -90,7 +92,8 @@ public class App {
         System.out.println("Surname: " + doc.getString("surname"));
         System.out.println("Phone: " + doc.getString("phone"));
         System.out.println("Email: " + doc.getString("email"));
-        System.out.println("Created At: " + doc.getDate("createdAt"));
+        System.out.println("Created At: " + doc.get("createdAt"));
         System.out.println("---------------------------");
     }
+
 }
