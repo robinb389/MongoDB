@@ -59,16 +59,16 @@ public class ContacteController {
     }
 
     private void eliminarContacte() {
-        String nom = view.demanarNom();
-        model.deleteContacte(nom);
+        String ID = view.demanarID();
+        model.deleteContacte(ID);
         view.mostrarMissatge("Contacte eliminat!");
     }
 
     private void modificarContacte() {
         view.mostrarContactes(model.getAllContactes());
-        String nomAntic = view.demanarNom();
+        String ID = view.demanarID();
         Contacte nouContacte = view.demanarDadesContacte();
-        model.updateContacte(nomAntic, nouContacte);
+        model.updateContacte(ID, nouContacte);
         view.mostrarMissatge("Contacte modificat!");
     }
 

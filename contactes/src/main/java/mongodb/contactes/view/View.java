@@ -4,8 +4,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-import org.bson.Document;
-
 import mongodb.contactes.model.Contacte;
 
 public class View {
@@ -41,11 +39,17 @@ public class View {
         return new Contacte(name, surname, phone, email);
     }
 
-    public String demanarNom() {
+    public String demanarID() {
+        sc.nextLine();
+        System.out.print("Introdueix el ID: ");
+        return sc.nextLine();
+    }
+
+        public String demanarNom() {
         sc.nextLine();
         System.out.print("Introdueix el nom: ");
         return sc.nextLine();
-    }
+        }
 
     public void mostrarContactes(List<Contacte> contactes) {
         if (contactes.isEmpty()) {
@@ -74,20 +78,22 @@ public class View {
         }
     }
 
-public void show(List<Document> docs) {
-    if (docs.isEmpty()) {
-        System.out.println("No s'han trobat contactes.");
-        return;
-    }
-
-    for (Document d : docs) {
-        System.out.println("Nom: " + d.getString("name"));
-        System.out.println("Cognom: " + d.getString("surname"));
-        System.out.println("Telèfon: " + d.getString("phone"));
-        System.out.println("Email: " + d.getString("email"));
-        System.out.println("Data creació: " + d.getDate("createdAt"));
-        System.out.println("---------------------------");
+    public void show(List<Contacte> contactes) {
+        if (contactes == null || contactes.isEmpty()) {
+            System.out.println("No s'han trobat contactes.");
+            return;
         }
+        System.out.println("─────────────────────────────────────────────");
+        for (Contacte c : contactes) {
+            System.out.printf("ID: %s  |  %s %s  |  %s  |  %s%n",
+                    c.getId(),
+                    c.getName(),
+                    c.getSurname(),
+                    c.getPhone(),
+                    c.getEmail());
+        }
+        System.out.println("─────────────────────────────────────────────");
+        System.out.println(contactes.size() + " contacte(s) trobats.\n");
     }
 
 

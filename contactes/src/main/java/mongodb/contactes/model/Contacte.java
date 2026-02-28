@@ -1,87 +1,59 @@
 package mongodb.contactes.model;
 
-import java.util.Date;
-
-import org.bson.Document;
+import org.json.JSONObject;
 
 public class Contacte {
+
+    private String id;
     private String name;
     private String surname;
     private String phone;
     private String email;
-    private Date createdAt;
 
-    // Constructor buit
     public Contacte() {}
 
-    // Constructor complet
-    public Contacte(String name, String surname, String phone, String email) {
+    public Contacte(String id,String name, String surname, String phone, String email) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.phone = phone;
         this.email = email;
-        this.createdAt = new Date();
     }
 
-    // Getters i Setters
-    public String getName() { 
-        return name; 
+       public Contacte(String name, String surname, String phone, String email) {
+        this.name = name;
+        this.surname = surname;
+        this.phone = phone;
+        this.email = email;
     }
-    public void setName(String name) { 
-        this.name = name; 
+
+    public String toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("surname", surname);
+        json.put("phone", phone);
+        json.put("email", email);
+        return json.toString();
     }
-    
-    public String getSurname() { 
-        return surname; 
-    }
-    public void setSurname(String surname) { 
-        this.surname = surname; 
-    }
-    
+
+    // Getters and setters
+
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+
+    public String getName() { return name; }
+    public String getSurname() { return surname; }
     public String getPhone() { return phone; }
-    public void setPhone(String phone) { 
-        this.phone = phone; 
-    }
-    
     public String getEmail() { return email; }
-    public void setEmail(String email) { 
-        this.email = email; 
-    }
-    
-    public Date getCreatedAt() { 
-        return createdAt; 
-    }
-    public void setCreatedAt(Date createdAt) {
-         this.createdAt = createdAt; 
-    }
 
-    // Mètode per convertir a Document de MongoDB
-    public Document toDocument() {
-        return new Document("name", name)
-                .append("surname", surname)
-                .append("phone", phone)
-                .append("email", email)
-                .append("createdAt", createdAt);
-    }
-
-    // Mètode per crear Contacte des de Document
-    public static Contacte fromDocument(Document doc) {
-        Contacte c = new Contacte();
-        c.setName(doc.getString("name"));
-        c.setSurname(doc.getString("surname"));
-        c.setPhone(doc.getString("phone"));
-        c.setEmail(doc.getString("email"));
-        c.setCreatedAt(doc.getDate("createdAt"));
-        return c;
-    }
+    public void setName(String name) { this.name = name; }
+    public void setSurname(String surname) { this.surname = surname; }
+    public void setPhone(String phone) { this.phone = phone; }
+    public void setEmail(String email) { this.email = email; }
 
     @Override
     public String toString() {
-        return "Name: " + name + "\n" +
-               "Surname: " + surname + "\n" +
-               "Phone: " + phone + "\n" +
-               "Email: " + email + "\n" +
-               "Created At: " + createdAt + "\n" +
-               "---------------------------";
+        return "ID = "  + id +  " || Name = " + name + " || surname = " + surname + " || phone = " + phone + " || email = " + email;
     }
+
 }
